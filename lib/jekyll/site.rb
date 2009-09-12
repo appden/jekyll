@@ -251,8 +251,7 @@ module Jekyll
     #                   "next_page" => <Number> }}
     def paginate_posts(file, dir)
       all_posts = self.posts.sort { |a,b| b <=> a }
-      pages = Pager.calculate_pages(all_posts, self.config['paginate'].to_i)
-      pages += 1
+      pages = Pager.calculate_pages(all_posts, self.config['paginate'])
       (1..pages).each do |num_page|
         pager = Pager.new(self.config, num_page, all_posts, pages)
         page = Page.new(self, self.source, dir, file)
