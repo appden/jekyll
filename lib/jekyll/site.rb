@@ -186,8 +186,8 @@ module Jekyll
           elsif Pager.pagination_enabled?(self.config, f)
             paginate_posts(f, dir)
           else
-            first3 = File.open(File.join(self.source, dir, f)) { |fd| fd.read(3) }
-            if first3 == "---"
+            first_line = File.open(File.join(self.source, dir, f)) { |fd| fd.readline }
+            if first_line =~ /^---\s*$/
               # file appears to have a YAML header so process it as a page
               page = Page.new(self, self.source, dir, f)
               page.render(self.layouts, site_payload)
